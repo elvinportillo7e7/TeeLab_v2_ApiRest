@@ -3,10 +3,6 @@ import * as camisetasController from '../controllers/camisetas.controller.js';
 
 const router = Router();
 
-router.get("/", camisetasController.getAll);
-router.get("/:id", camisetasController.getById);
-router.post("/comandas", camisetasController.create);
-router.get("/comandas", camisetasController.update);
-router.get("/comandas/:id", camisetasController.update);
-
+router.get("/", camisetasController.getCamisetas);
+router.get("/:id", camisetasController.getCamisetasById);
 export default router;

@@ -1,51 +1,53 @@
 import { camisetas } from "../data/camisetas.js";
 
 
-// Valida campos mínimos camisetas
-function validateStudent(obj) {
- if (!obj || typeof obj !== "object") return "Body inválido";
- if (!obj.id || !obj.nombre || !obj.curso) return "Faltan campos: id, nombre, curso";
- else return null;
+
+export function getCamisetas(filtros) {
+  let resultado = [...camisetas];
+
+  if (filtros.tallas){resultado = resultado.filter(c =>
+    c.tallas.some(talla => talla.toLowerCase() === filtros.talla.toLowerCase())
+  )}
+  if (filtros.tags) {
+    resultado = resultado.filter(c =>
+      c.tags.some(tag => tag.toLowerCase() === filtros.tags.toLowerCase())
+    );
+  }
+  if (filtros.colores){resultado = resultado.filter(c =>
+    c.colores.some(color => color.toLowerCase() === filtros.colores.toLowerCase())
+  )}
+
+  if (filtros.q) {
+    const busqueda = filtros.q.toLowerCase();
+    resultado = resultado.filter(c =>
+      c.nombre.toLowerCase().includes(busqueda) || c.descripcion.toLowerCase().includes(busqueda)
+    );
+  }
+
+  if (filtros.sort) {
+    switch (filtros.sort) {
+      case 'precio_asc':
+        resultado.sort((a, b) => a.precioBase - b.precioBase);
+        break;
+      case 'precio_desc':
+        resultado.sort((a, b) => b.precioBase - a.precioBase);
+        break;
+      case 'nombre_asc':
+        resultado.sort((a, b) => a.nombre.localeCompare(b.nombre));
+        break;
+      case 'nombre_desc':
+        resultado.sort((a, b) => b.nombre.localeCompare(a.nombre));
+        break;
+      default:
+        break;
+    }
+  }
+
+
+
+  return resultado;
 }
-// Comprueba si el id de camisetas ya existe
-const existsId = (id) => camisetas.some(s => s.id === id);
-export function getAll() {
- return camisetas;
+
+export function getCamisetasById(id){
+   return camisetas.find(c => c.id === id);
 }
-export function getById(id) {
- return camisetas.find(s => s.id === id);
-}
-export function create(alumnoNew) {
- const validationMsg = validateStudent(alumnoNew);
- if (validationMsg) return { error: validationMsg };
-
- if (existsId(alumnoNew.id)) return { error: "id ya existe", status: 409 };
-
- camisetas.push({ id: alumnoNew.id, nombre: alumnoNew.nombre, curso: alumnoNew.curso });
- return { data: alumnoNew };
-}
-
-export function update(id, payload) {
- const idx = camisetas.findIndex(s => s.id === id);
- if (idx === -1) return null;
-
- if (payload && typeof payload === "object") {
-   if (payload.nombre !== undefined) camisetas[idx].nombre = payload.nombre;
-   if (payload.curso !== undefined) camisetas[idx].curso = payload.curso;
- }
-
- return camisetas[idx];
-}
-
-export function removeStudent(id) {
-  removeNotas(id)
- const before = camisetas.length;
- const filtered = camisetas.filter(s => s.id !== id);
-
- if (filtered.length === before) return false;
-
- camisetas.length = 0;
- camisetas.push(...filtered);
- return true;
-}
-

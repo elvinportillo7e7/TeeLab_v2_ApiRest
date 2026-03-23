@@ -11,7 +11,8 @@ export const camisetas = [
       "negro": "img/MACACARENA_BLACK.png",
       "mostaza": "img/MACACARENA.png"
     },
-    "tags": ["nuevo"]
+    "tags": ["nuevo"],
+    "cantidad" : 70
   },
   {
     "id": "TSH02",
@@ -24,7 +25,8 @@ export const camisetas = [
       "gris": "img/NINETIES.png",
       "negro": "img/NINETIES_BLACK.png"
     },
-    "tags": ["retro"]
+    "tags": ["retro"],
+    "cantidad" : 70
   },
   {
     "id": "TSH03",
@@ -37,7 +39,8 @@ export const camisetas = [
       "azul": "img/RESERVOIR.png",
       "negro": "img/RESERVOIR_BLACK.png"
     },
-    "tags": ["edicion-especial"]
+    "tags": ["edicion-especial"],
+    "cantidad" : 70
   },
   {
     "id": "TSH04",
@@ -50,7 +53,8 @@ export const camisetas = [
       "blanco": "img/VITRUVIAN.png",
       "negro": "img/VITRUVIAN_BLACK.png"
     },
-    "tags": ["premium"]
+    "tags": ["premium"],
+    "cantidad" : 70
   }
 ];
 
