@@ -1,9 +1,12 @@
 import express from 'express';
+import cors from 'cors';
 import camisetasRouter from './routes/camisetas.routes.js';
+import  comandasRouter  from './routes/comandas.routes.js';
 
 const app = express();
 const PORT = 3000;
 // Middlewares globales
+app.use(cors());
 app.use(express.json());
 
 // Log mínimo
@@ -12,13 +15,18 @@ app.use((req, res, next) => {
  next();
 });
 
-// Ruta info camisetas
+// Ruta info de ApiRest
 app.use('/camisetas', camisetasRouter);
+app.use('/comandas', comandasRouter); 
 
 // Middleware de errores
 app.use((err, req, res, next) => {
- console.error(err.message);
- res.status(500).json({ message: "Error interno" });
+  const statusCode = err.status || 500;
+  const message = err.message || "Error interno del servidor";
+  
+  res.status(statusCode).json({
+    error: message
+  });
 });
 
 app.listen(PORT, () => {

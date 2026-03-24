@@ -1,8 +1,10 @@
 import { Router } from 'express';
-import * as camisetasController from '../controllers/comandas.controller.js';
+import * as comandasController from '../controllers/comandas.controllers.js';
 
 const router = Router();
 
-router.post("/comandas", camisetasController.getCamisetas);
+router.post("/", comandasController.postComandas);
+router.get("/", comandasController.getComandas);
+router.get("/:id", comandasController.getComandaById);
 
 export default router;
