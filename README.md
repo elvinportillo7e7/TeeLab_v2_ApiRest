@@ -6,7 +6,7 @@ Se puede consultar el catálogo con filtros y crear pedidos validando stock y da
 
 1. Instalar las dependencias necesarias:
 ```bash
-npm install
+brew install node
 ```
 
 ```bash
